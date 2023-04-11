@@ -9,10 +9,12 @@
     <relativePath />
   </parent>
 
+  <groupId>io.jenkins.lib</groupId>
   <artifactId>shared-resources</artifactId>
   <version>${revision}${changelist}</version>
   <name>Jenkins Shared Resources</name>
   <description>A collection of templates that are specific to the Jenkins project.</description>
+  <url>https://github.com/jenkinsci/lib-${project.artifactId}</url>
 
   <licenses>
     <license>
@@ -31,7 +33,7 @@
   <properties>
     <revision>1.0</revision>
     <changelist>-SNAPSHOT</changelist>
-    <gitHubRepo>jenkinsci/${project.artifactId}</gitHubRepo>
+    <gitHubRepo>jenkinsci/lib-${project.artifactId}</gitHubRepo>
   </properties>
 
   <dependencies>
