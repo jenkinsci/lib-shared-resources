@@ -1,0 +1,103 @@
+= Jenkins Shared Resources
+
+== Introduction
+
+This is a collection of templates that are specific to the Jenkins project.
+They are probably not of interest to projects other than the Jenkins project.
+
+Below you will find a listing of the resources that can be found in the current version.
+They are listed by which Maven plugin they are meant to be used with.
+
+=== https://github.com/diffplug/spotless/tree/main/plugin-maven[Spotless Maven Plugin]
+
+`config/greclipse.properties`:: This is an https://github.com/groovy/groovy-eclipse[Eclipse Groovy Development Tools] configuration file for Groovy coding conventions that can be used in Spotless Maven Plugin.
+
+== Usage
+
+There are a couple of things you need to do to use these shared resources.
+First, you need to give the Maven plugin that will use the resources access to them.
+After that, you need to configure the Maven plugin to actually use the resources.
+
+=== Add the resources to the Maven plugin
+
+First, you add `shared-resources` as a dependency to a Maven plugin in your `pom.xml`.
+This is done to give the Maven plugin access to the resources within the `shared-resources` JAR file.
+In this example we will use the resources in Spotless Maven Plugin.
+
+[source,xml]
+----
+<project>
+  […]
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>2.36.0</version>
+        <configuration>
+          […]
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.jenkins-ci</groupId>
+            <artifactId>shared-resources</artifactId>
+            <version>1.0</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          […]
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  […]
+</project>
+----
+
+=== Configure the Maven plugin to use the resources
+
+Now you can use the resources in the Maven plugin.
+You can use them as if they existed in your own project, like this:
+
+[source,xml]
+----
+<project>
+  […]
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>2.36.0</version>
+        <configuration>
+          <groovy>
+            <includes>
+              <include>Jenkinsfile</include>
+            </includes>
+            <greclipse>
+              <file>config/greclipse.properties</file>
+            </greclipse>
+          </groovy>
+        </configuration>
+        <dependencies>
+          […]
+        </dependencies>
+        <executions>
+          […]
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  […]
+</project>
+----
+
+=== Execute the plugin
+
+All is now set up to make use of the resources in the Maven plugin for your project.
+Execute the Maven plugin like you would normally do to see the resources put to practical use.
+
+[source,sh]
+----
+mvn spotless:check
+----
