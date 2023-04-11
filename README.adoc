@@ -39,7 +39,7 @@ In this example we will use the resources in Spotless Maven Plugin.
         </configuration>
         <dependencies>
           <dependency>
-            <groupId>org.jenkins-ci</groupId>
+            <groupId>io.jenkins.lib</groupId>
             <artifactId>shared-resources</artifactId>
             <version>1.0</version>
           </dependency>
